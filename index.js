@@ -1,5 +1,3 @@
-const fn = function () {
-  console.log('Hello world')
-};
+const fn = function () {};
 
 fn();

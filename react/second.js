@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom';
 
 // Second example: A Parent that counts the number of button clicks
 // Notice that it re-uses the same Child component above
-var CountingParent = React.createClass({
+class CountingParent extends React.Component {
   // This function is only called once
-  getInitialState: function () {
-    return {
-      actionCount: 0,
-    };
-  },
-  handleAction: function (action) {
+  state = {
+    actionCount: 0,
+  };
+
+  handleAction = (action) => {
     console.log('Child says', action);
     // Replace actionCount with an incremented value
     this.setState({
       actionCount: this.state.actionCount + 1,
     });
-  },
-  render: function () {
+  };
+
+  render() {
     return ( <
       div >
       <
@@ -31,5 +31,5 @@ var CountingParent = React.createClass({
       times < /p> < /
       div >
     );
-  },
-});
+  }
+}

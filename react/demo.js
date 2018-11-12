@@ -3,54 +3,56 @@ import ReactDOM from 'react-dom';
 
 // First example: A simple Parent and Child, where the Parent
 // simply prints to the console when the button is clicked in Child
-var Parent = React.createClass({
-  handleAction: function(action) {
+class Parent extends React.Component {
+  handleAction = (action) => {
     console.log('Child says', action);
-  },
-  render: function() {
-    return <Child onAction={this.handleAction} />;
-  },
-});
+  };
 
-var Child = React.createClass({
-  alertParent: function() {
+  render() {
+    return <Child onAction={this.handleAction} />;
+  }
+}
+
+class Child extends React.Component {
+  alertParent = () => {
     this.props.onAction('button was clicked');
-  },
-  render: function() {
+  };
+
+  render() {
     return <button onClick={this.alertParent}>Click Me</button>;
-  },
-});
+  }
+}
 
 // Second example: A Parent that counts the number of button clicks
 // Notice that it re-uses the same Child component above
-var CountingParent = React.createClass({
+class CountingParent extends React.Component {
   // This function is only called once
-  getInitialState: function() {
-    return {
-      actionCount: 0,
-    };
-  },
-  handleAction: function(action) {
+  state = {
+    actionCount: 0,
+  };
+
+  handleAction = (action) => {
     console.log('Child says', action);
     // Replace actionCount with an incremented value
     this.setState({
       actionCount: this.state.actionCount + 1,
     });
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         <Child onAction={this.handleAction} />
         <p>Clicked {this.state.actionCount} times</p>
       </div>
     );
-  },
-});
+  }
+}
 
 // Third example: a Page containing a few CountingParents, to demonstrate that
 // state is independent for every component
-var Page = React.createClass({
-  render: function() {
+class Page extends React.Component {
+  render() {
     return (
       <div>
         <CountingParent />
@@ -58,33 +60,32 @@ var Page = React.createClass({
         <CountingParent />
       </div>
     );
-  },
-});
+  }
+}
 
 // This is an answer to the "Reset Button" mini-exercise
-var CountingParentWithReset = React.createClass({
+class CountingParentWithReset extends React.Component {
   // This function is only called once
-  getInitialState: function() {
-    return {
-      actionCount: 0,
-    };
-  },
-  handleAction: function(action) {
+  state = {
+    actionCount: 0,
+  };
+
+  handleAction = (action) => {
     // Replace actionCount with an incremented value
     this.setState({
       actionCount: this.state.actionCount + 1,
     });
-  },
+  };
 
   /* This function has been added */
-  handleReset: function(action) {
+  handleReset = (action) => {
     // Reset actionCount to 0
     this.setState({
       actionCount: 0,
     });
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div>
         <Child onAction={this.handleAction} />
@@ -93,48 +94,48 @@ var CountingParentWithReset = React.createClass({
         <button onClick={this.handleReset}>Reset</button>
       </div>
     );
-  },
-});
+  }
+}
 
 // Here's the 2nd part of that exercise, with the Child modified
 // to take an "onReset" prop and call it when the button is clicked
-var ChildWithReset = React.createClass({
-  alertParent: function() {
+class ChildWithReset extends React.Component {
+  alertParent = () => {
     this.props.onAction('button was clicked');
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         <button onClick={this.alertParent}>Click Me</button>
         <button onClick={this.props.onReset}>Reset</button>
       </div>
     );
-  },
-});
+  }
+}
 
-var ParentUsingChildWithReset = React.createClass({
+class ParentUsingChildWithReset extends React.Component {
   // This function is only called once
-  getInitialState: function() {
-    return {
-      actionCount: 0,
-    };
-  },
-  handleAction: function(action) {
+  state = {
+    actionCount: 0,
+  };
+
+  handleAction = (action) => {
     // Replace actionCount with an incremented value
     this.setState({
       actionCount: this.state.actionCount + 1,
     });
-  },
+  };
 
   /* This function has been added */
-  handleReset: function(action) {
+  handleReset = (action) => {
     // Reset actionCount to 0
     this.setState({
       actionCount: 0,
     });
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div>
         {/* call handleReset when the button is clicked */}
@@ -142,40 +143,41 @@ var ParentUsingChildWithReset = React.createClass({
         <p>Clicked {this.state.actionCount} times</p>
       </div>
     );
-  },
-});
+  }
+}
 
-var InputControl = React.createClass({
-  propTypes: {
+class InputControl extends React.Component {
+  static propTypes = {
     initialValue: React.PropTypes.string,
-  },
-  componentDidMount: function() {
+  };
+
+  static defaultProps = {
+    initialValue: '',
+  };
+
+  state = {
+    text: this.props.initialValue || 'placeholder',
+  };
+
+  componentDidMount() {
     console.log('mounted');
-  },
-  getDefaultProps: function() {
-    return {
-      initialValue: '',
-    };
-  },
-  getInitialState: function() {
-    return {
-      text: this.props.initialValue || 'placeholder',
-    };
-  },
-  handleChange: function(event) {
+  }
+
+  handleChange = (event) => {
     this.setState({
       text: event.target.value,
     });
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         Type something:
         <input onChange={this.handleChange} value={this.state.text} />
       </div>
     );
-  },
-});
+  }
+}
 
 let Demo = () => (
   <div>
