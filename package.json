@@ -1,0 +1,22 @@
+{
+  "name": "ast-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r4mkum4r/ast-workshop.git"
+  },
+  "author": "raramakrishna@egencia.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r4mkum4r/ast-workshop/issues"
+  },
+  "homepage": "https://github.com/r4mkum4r/ast-workshop#readme",
+  "dependencies": {
+    "jscodeshift": "^0.5.1"
+  }
+}
